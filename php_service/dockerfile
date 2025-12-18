@@ -1,17 +1,4 @@
 FROM php:8.2-apache
-
-# Variable d'environnement avec TON prénom
-ENV PRENOM="Maxime"
-
-# Copier le fichier PHP
 COPY index.php /var/www/html/
-
-# Configurer Apache
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-RUN a2enmod rewrite
-
-# Exposer le port
 EXPOSE 80
-
-# Démarrer Apache
 CMD ["apache2-foreground"]
