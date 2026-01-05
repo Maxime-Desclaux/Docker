@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  java-service:
+    image: test-java
+    container_name: java-service
+    ports:
+      - "8090:8080"
+    environment:
+      - customer.service.url=http://php-service:80
+    networks:
+      - tp-network
+
+  php-service:
+    image: projet_docker-main-php-service
+    container_name: php-service
+    ports:
+      - "8091:80"
+    networks:
+      - tp-network
+
+networks:
+  tp-network:
+    driver: bridge
