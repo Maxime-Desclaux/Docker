@@ -258,4 +258,10 @@ curl -i -H "Host: myservice.local" http://127.0.0.1:8081/
 
 ![](img/service_local.png)
 
+Dashboard de minikube
 ---
+
+![](img/minikube_dashboard.png)
+
+![](img/Dashboard.png)
+
