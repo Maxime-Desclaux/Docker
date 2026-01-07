@@ -182,6 +182,80 @@ docker compose up --build
 
 ---
 
-## 9. Auteur
+# 9. Kubernetes – déploiement des microservices
 
-Projet réalisé dans le cadre d'un exercice sur Docker et la communication inter-services.
+**Screenshots à faire :**
+- `kubectl get pods` → tous les pods Running
+
+![Docker PS](img/get_pods.png)
+
+- `kubectl get svc` → services exposés (php-service, java-service)
+
+![Docker PS](img/get_svc.png)
+
+
+
+## 9.1 Appliquer Kubernetes
+
+```bash
+kubectl apply -f kubernetes.yml
+```
+
+---
+
+# 10. Gateway – Ingress Nginx
+
+## 10.1 Fichier `ingress.yml`
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myservice-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: myservice.local     
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: myservice     
+            port:
+              number: 8080
+
+```
+
+## 11.2 Configurer `/etc/hosts`
+
+Ajouter l'IP de Minikube pour le host `myservice.local` :
+
+```
+192.168.58.2 myservice.local
+```
+
+## 11.3 Appliquer l'Ingress
+
+```bash
+kubectl apply -f ingress.yml
+kubectl get ingress
+```
+
+
+## 11.4 Tester la gateway
+
+### Avec curl (il faut ouvrir deux terminaux):
+
+```bash
+kubectl -n ingress-nginx port-forward svc/ingress-nginx-controller 8081:80
+curl -i -H "Host: myservice.local" http://127.0.0.1:8081/
+```
+
+![](img/Port.png)
+
+![](img/service_local.png)
+
+---
