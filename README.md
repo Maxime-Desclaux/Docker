@@ -200,6 +200,19 @@ docker compose up --build
 ```bash
 kubectl apply -f kubernetes.yml
 ```
+> ⚠️ Pour utiliser l'image locale de Java (myservice:latest) avec Minikube, ajoutez `imagePullPolicy: Never` dans le déploiement :
+
+```containers:
+- name: myservice
+  image: myservice:latest
+  imagePullPolicy: Never
+  ports:
+  - containerPort: 8080
+  env:
+  - name: CUSTOMER_SERVICE_URL
+    value: "http://php-service:80"
+
+```
 
 ---
 

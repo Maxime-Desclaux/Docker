@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   java-service:
-    image: test-java
+    image: maxime/rentalservice:latest
     container_name: java-service
     ports:
       - "8090:8080"
@@ -12,7 +12,7 @@ services:
       - tp-network
 
   php-service:
-    image: projet_docker-main-php-service
+    image: myservice:latest
     container_name: php-service
     ports:
       - "8091:80"

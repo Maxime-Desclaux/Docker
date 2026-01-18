@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "3"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"myservice","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"myservice"}},"template":{"metadata":{"labels":{"app":"myservice"}},"spec":{"containers":[{"image":"efrei/myservice:1","imagePullPolicy":"IfNotPresent","name":"myservice"}],"restartPolicy":"Always"}}}}
+  creationTimestamp: "2026-01-07T09:39:53Z"
+  generation: 3
+  labels:
+    app: myservice
+  name: myservice
+  namespace: default
+  resourceVersion: "60715"
+  uid: 975b924f-6a30-423a-b5f1-8676d9019e2f
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: myservice
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: myservice
+    spec:
+      containers:
+      - image: myservice:latest
+        imagePullPolicy: IfNotPresent
+        name: myservice
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2026-01-09T10:35:38Z"
+    lastUpdateTime: "2026-01-09T10:35:38Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2026-01-07T09:39:53Z"
+    lastUpdateTime: "2026-01-09T10:42:21Z"
+    message: ReplicaSet "myservice-64bdd6754b" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 3
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
